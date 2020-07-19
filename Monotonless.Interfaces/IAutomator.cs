@@ -7,7 +7,7 @@ namespace Monotonless.Interfaces
     /// <summary>
     /// The main enterence point for the program. Is used to automate actions that can take place on the computer.
     /// </summary>
-    interface IAutomator
+    public interface IAutomator
     {
         /// <summary>
         /// Searches for the provided image on the screen and will double click if it finds it.
@@ -20,7 +20,7 @@ namespace Monotonless.Interfaces
         /// </summary>
         /// <param name="resourcePath">The path to the image.</param>
         /// <returns>A class for that resource with multiple methods on it.</returns>
-        IActionPoint GetActionPoint(string resourcePath);
+        IInteractable GetInteractable(string resourcePath);
 
         /// <summary>
         /// Moves the mouse to a specified X and Y location.
@@ -93,22 +93,22 @@ namespace Monotonless.Interfaces
         void SetForegroundWindow(string title);
 
         /// <summary>
-        /// Searches for the resource supplied and if found will make a <paramref name="actionPoint"/> for it to be used.
+        /// Searches for the resource supplied and if found will make a <paramref name="interactable"/> for it to be used.
         /// </summary>
-        /// <param name="actionPoint">The out paramter class of the resource found..</param>
+        /// <param name="interactable">The out paramter class of the resource found..</param>
         /// <param name="resourcePath">The supplied image path.</param>
         /// <returns>Whether or not it was able to find the supplied image path.</returns>
-        bool TryGetActionPoint(out IActionPoint actionPoint, string resourcePath);
+        bool TryGetInteractable(out IInteractable interactable, string resourcePath);
 
         /// <summary>
         /// Searches the screen for the supplied image resource. Will wait until it does not see it on the screen, or if the supplied timeout has been exceeded.
-        /// Outputs a class <paramref name="actionPoint"/> based on the location of the found resource.
+        /// Outputs a class <paramref name="interactable"/> based on the location of the found resource.
         /// </summary>
-        /// <param name="actionPoint">A class generated at the location of the found resource.</param>
+        /// <param name="interactable">A class generated at the location of the found resource.</param>
         /// <param name="resourcePath">The supplied path to the image.</param>
         /// <param name="millisecondTimeout">A timeout that will end the method if the image is still on screen.</param>
         /// <returns>Whether or not it was able to find the image, and if the image disappered by the end of the timeout.</returns>
-        bool WaitUntilDisappear(out IActionPoint actionPoint, string resourcePath, int millisecondTimeout);
+        bool WaitUntilDisappear(out IInteractable interactable, string resourcePath, int millisecondTimeout);
 
         /// <summary>
         /// Searches the screen for the supplied image resource. Will wait until it does not see it on the screen, or if the supplied timeout has been exceeded.
@@ -120,13 +120,13 @@ namespace Monotonless.Interfaces
 
         /// <summary>
         /// Searches the screen for a supplied resource and will continue to do so until it finds that resource, or the timeout has been passed. Once found,
-        /// creates a class <paramref name="actionPoint"/> that can be used for other methods.
+        /// creates a class <paramref name="interactable"/> that can be used for other methods.
         /// </summary>
-        /// <param name="actionPoint">The out parameter that can be used to call methods on the found resource.</param>
+        /// <param name="interactable">The out parameter that can be used to call methods on the found resource.</param>
         /// <param name="resourcePath">The supplied image path.</param>
         /// <param name="millisecondTimeout">A timeout that is used to determine when the search is finished.</param>
         /// <returns>Whether or not it was able to find the resource by the end of the timeout.</returns>
-        bool WaitUntilShowing(out IActionPoint actionPoint, string resourcePath, int millisecondTimeout);
+        bool WaitUntilShowing(out IInteractable interactable, string resourcePath, int millisecondTimeout);
 
         /// <summary>
         /// Searches the screen for a supplied resource and will continue to do so until it finds that resource, or the timeout has been passed.
@@ -146,12 +146,12 @@ namespace Monotonless.Interfaces
         void DragAndDrop(int X1, int Y1, int X2, int Y2);
 
         /// <summary>
-        /// Left clicks at the first <paramref name="startActionPoint"/>, holds left click down until it moves to the second <paramref name="endActionPoint"/>
+        /// Left clicks at the first <paramref name="startInteractable"/>, holds left click down until it moves to the second <paramref name="endInteractable"/>
         /// where it let's go of left click.
         /// </summary>
-        /// <param name="startActionPoint">The starting left click location.</param>
-        /// <param name="endActionPoint">The ending left click location.</param>
-        void DragAndDrop(IActionPoint startActionPoint, IActionPoint endActionPoint);
+        /// <param name="startInteractable">The starting left click location.</param>
+        /// <param name="endInteractable">The ending left click location.</param>
+        void DragAndDrop(IInteractable startInteractable, IInteractable endInteractable);
 
         /// <summary>
         /// Right clicks at the first location specified holds that, and then moves to the second location and let's go of right click.
@@ -163,24 +163,24 @@ namespace Monotonless.Interfaces
         void RightClickDragAndDrop(int X1, int Y1, int X2, int Y2);
 
         /// <summary>
-        /// right clicks at the first <paramref name="startActionPoint"/>, holds right click down until it moves to the second <paramref name="endActionPoint"/>
+        /// right clicks at the first <paramref name="startInteractable"/>, holds right click down until it moves to the second <paramref name="endInteractable"/>
         /// where it let's go of right click.
         /// </summary>
-        /// <param name="startActionPoint">The starting right click location.</param>
-        /// <param name="endActionPoint">The ending right click location.</param>
-        void RightClickDragAndDrop(IActionPoint startActionPoint, IActionPoint endActionPoint);
+        /// <param name="startInteractable">The starting right click location.</param>
+        /// <param name="endInteractable">The ending right click location.</param>
+        void RightClickDragAndDrop(IInteractable startInteractable, IInteractable endInteractable);
 
         /// <summary>
-        /// Holds down the control button as it lefts clicks all the <paramref name="actionPoints"/>.
+        /// Holds down the control button as it lefts clicks all the <paramref name="interactables"/>.
         /// </summary>
-        /// <param name="actionPoints">The points to control click.</param>
-        void ControlSelect(IEnumerable<IActionPoint> actionPoints);
+        /// <param name="interactables">The points to control click.</param>
+        void ControlSelect(IEnumerable<IInteractable> interactables);
 
         /// <summary>
-        /// Holds down the shift key as it left clicks the first location <paramref name="start"/> and then left clicks the end location <paramref name="end"/>.
+        /// Holds down the shift key as it left clicks the first location <paramref name="startInteractable"/> and then left clicks the end location <paramref name="endInteractable"/>.
         /// </summary>
-        /// <param name="start">The start location.</param>
-        /// <param name="end">The end location.</param>
-        void ShiftSelect(IActionPoint start, IActionPoint end);
+        /// <param name="startInteractable">The start location.</param>
+        /// <param name="endInteractable">The end location.</param>
+        void ShiftSelect(IInteractable startInteractable, IInteractable endInteractable);
     }
 }

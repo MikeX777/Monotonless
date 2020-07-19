@@ -2,7 +2,7 @@
 
 namespace Monotonless
 {
-    public class Class1
+    public class Automator
     {
     }
 }
