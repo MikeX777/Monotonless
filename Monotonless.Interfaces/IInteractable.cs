@@ -21,7 +21,7 @@
         void RightClick();
 
         /// <summary>
-        /// Double clicks on the iteractable.
+        /// Double clicks on the interactable.
         /// </summary>
         void DoubleClick();
 
