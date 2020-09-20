@@ -22,7 +22,7 @@
         /// Moves the cursor to the specified location by the <see cref="ScreenCoordinate"/>
         /// </summary>
         /// <param name="screenCoordinate">The supplied position on screen.</param>
-        void SetcursorPosition(ScreenCoordinate screenCoordinate);
+        void SetCursorPosition(ScreenCoordinate screenCoordinate);
 
         /// <summary>
         /// Left clicks at the current location. 
